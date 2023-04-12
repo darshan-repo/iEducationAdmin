@@ -29,9 +29,10 @@ class _StaffListScreenState extends State<StaffListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appbar(context, title: 'Staff List'),
       body: isLoading
-          ?  Center(child: CircularProgressIndicator(color: kPrimaryColor))
+          ? Center(child: CircularProgressIndicator(color: kPrimaryColor))
           : StaffListApi.staffDataList.isEmpty
               ? Center(
                   child: Lottie.asset('assets/icons/Circle.json'),
@@ -109,7 +110,7 @@ class _StaffListScreenState extends State<StaffListScreen> {
                                       ),
                                     ),
                                     placeholder: (context, url) =>
-                                         CircularProgressIndicator(
+                                        CircularProgressIndicator(
                                       color: kPrimaryColor,
                                     ),
                                     errorWidget: (context, url, error) =>

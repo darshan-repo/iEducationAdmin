@@ -58,6 +58,30 @@ class StudentDataApi {
   }
 }
 
+// **** Attendence ****
+class AttendenceApi {
+  static DatabaseReference db = FirebaseDatabase.instance.ref('attendence');
+  static List<Attendence> attendenceDataList = [];
+  static String keys = "";
+
+  static  fetchData() async {
+    attendenceDataList.clear();
+    await db.once().then((value) {
+      Map data =
+          value.snapshot.value == null ? {} : value.snapshot.value as Map;
+      data.forEach((key, value) {
+        if (key == keys) {
+          value.forEach((key, value) {
+            attendenceDataList.add(Attendence.fromJson(value));
+          });
+          attendenceDataList.sort((a, b) => a.key!.compareTo(b.key!));
+        }
+      });
+      print('====>>>>> ${attendenceDataList.length}');
+    });
+  }
+}
+
 // **** Staff List ****
 class StaffListApi {
   static List<StaffList> staffDataList = [];

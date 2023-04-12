@@ -42,23 +42,24 @@ class Student {
   });
 
   factory Student.fromJson(Map<dynamic, dynamic> json) => Student(
-      address: json['address'],
-      bloodGroup: json['bloodGroup'],
-      caste: json['caste'],
-      dob: json['dob'],
-      email: json['email'],
-      enrollNo: json['enrollNo'],
-      fName: json['fName'],
-      gender: json['gender'],
-      image: json['image'],
-      lName: json['lName'],
-      mName: json['mName'],
-      phoneNo: json['phoneNo'],
-      pincode: json['pincode'],
-      semester: json['semester'],
-      spidNo: json['spidNo'],
-      stream: json['stream'],
-      key: json['key']);
+        address: json['address'],
+        bloodGroup: json['bloodGroup'],
+        caste: json['caste'],
+        dob: json['dob'],
+        email: json['email'],
+        enrollNo: json['enrollNo'],
+        fName: json['fName'],
+        gender: json['gender'],
+        image: json['image'],
+        lName: json['lName'],
+        mName: json['mName'],
+        phoneNo: json['phoneNo'],
+        pincode: json['pincode'],
+        semester: json['semester'],
+        spidNo: json['spidNo'],
+        stream: json['stream'],
+        key: json['key'],
+      );
 
   Map<String, dynamic> toJson() => {
         'key': key,
@@ -86,6 +87,7 @@ class Student {
 class Attendence {
   String? name, stream, semester, image;
   double? attendence;
+  int? key;
 
   Attendence({
     this.name,
@@ -93,14 +95,16 @@ class Attendence {
     this.attendence,
     this.image,
     this.semester,
+    this.key,
   });
 
-  factory Attendence.fromJson(Map<String, dynamic> json) => Attendence(
+  factory Attendence.fromJson(Map<dynamic, dynamic> json) => Attendence(
         attendence: json['attendence'],
         stream: json['stream'],
         image: json['image'],
         name: json['name'],
         semester: json['semester'],
+        key: json['key'],
       );
 
   Map<String, dynamic> toJson() {
@@ -119,6 +123,9 @@ class Attendence {
     }
     if (name != null) {
       data['name'] = name;
+    }
+    if (key != null) {
+      data['key'] = key;
     }
     return data;
   }
@@ -536,7 +543,6 @@ class General {
       };
 }
 
-
 // **** Competitive Exam ****
 class CompetitiveExam {
   String image, title, description;
@@ -563,4 +569,3 @@ class CompetitiveExam {
         'description': description,
       };
 }
-

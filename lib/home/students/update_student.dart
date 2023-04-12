@@ -130,18 +130,16 @@ class _UpdateStudentState extends State<UpdateStudent> {
                         txtController: txtStudentFnameController,
                         prefixIcon: Icons.person,
                         hintText: 'First Name',
-                        validator: (value) => value!.isEmpty
-                            ? " Please Enter First Name"
-                            : null,
+                        validator: (value) =>
+                            value!.isEmpty ? " Please Enter First Name" : null,
                       ),
                       labelText(text: 'Middle Name'),
                       textFormField(
                         txtController: txtStudentMNameController,
                         prefixIcon: Icons.person,
                         hintText: 'Middle Name',
-                        validator: (value) => value!.isEmpty
-                            ? " Please Enter Middle Name"
-                            : null,
+                        validator: (value) =>
+                            value!.isEmpty ? " Please Enter Middle Name" : null,
                       ),
                       labelText(text: 'Last Name'),
                       textFormField(
@@ -228,7 +226,7 @@ class _UpdateStudentState extends State<UpdateStudent> {
                             const SizedBox(
                               width: 10,
                             ),
-                             Icon(
+                            Icon(
                               Icons.transgender,
                               color: kPrimaryColor,
                             ),
@@ -392,13 +390,11 @@ class _UpdateStudentState extends State<UpdateStudent> {
                       textFormField(
                         txtController: txtStudentEnrollmentControl,
                         prefixIcon: Icons.format_list_numbered_rtl_outlined,
-                        keyboardType: TextInputType.number,
                         hintText: 'Enter Enrollment No.',
                         validator: (value) => value!.isEmpty
                             ? "Please Enter valid Enrollment no"
                             : null,
                         inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(14),
                         ],
                       ),

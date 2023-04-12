@@ -95,9 +95,9 @@ class _AttendenceScreenState extends State<AttendenceScreen>
       body: TabBarView(
         controller: tabController,
         children: const [
-          BCAAttendenceScreen(),
-          BBAAttendenceScreen(),
-          BCOMAttendenceScreen(),
+          BCAAttendenceScreen(args: "BCA"),
+          BBAAttendenceScreen(args: "BBA"),
+          BCOMAttendenceScreen(args: "BCOM"),
         ],
       ),
     );

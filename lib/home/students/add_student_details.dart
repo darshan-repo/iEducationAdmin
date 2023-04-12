@@ -367,13 +367,11 @@ class AddStudentDetailsState extends State<AddStudentDetails> {
                       textFormField(
                         txtController: txtStudentEnrollmentControl,
                         prefixIcon: Icons.format_list_numbered_rtl_outlined,
-                        keyboardType: TextInputType.text,
                         hintText: 'Enter Enrollment No.',
                         validator: (value) => value!.isEmpty
                             ? "Please Enter valid Enrollment no"
                             : null,
                         inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(14),
                         ],
                       ),
