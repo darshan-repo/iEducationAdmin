@@ -1,4 +1,4 @@
-import 'package:admin_app/home/attendence/attendence_widget.dart';
+import 'package:admin_app/common/searching_filter.dart';
 import 'package:admin_app/libs.dart';
 
 class BCOMAttendenceScreen extends StatefulWidget {
@@ -10,7 +10,7 @@ class BCOMAttendenceScreen extends StatefulWidget {
 }
 
 class _BCOMAttendenceScreenState extends State<BCOMAttendenceScreen> {
-  TextEditingController searchController = TextEditingController();
+  TextEditingController bcomAttendenceSearch = TextEditingController();
   String? selectedSemSemester = 'All';
 
   final List<String> semester = [
@@ -33,8 +33,9 @@ class _BCOMAttendenceScreenState extends State<BCOMAttendenceScreen> {
 
   Future<void> showBCOMAttendence() async {
     AttendenceApi.keys = widget.args;
-    await AttendenceApi.fetchData();
     isLoading = true;
+
+    await AttendenceApi.fetchData();
     bcomAttendenceList.clear();
     bcomAttendenceList = AttendenceApi.attendenceDataList;
     isLoading = false;
@@ -52,7 +53,7 @@ class _BCOMAttendenceScreenState extends State<BCOMAttendenceScreen> {
             children: [
               searching(
                 context,
-                controller: searchController,
+                controller: bcomAttendenceSearch,
                 items: semester
                     .map(
                       (semester) => DropdownMenuItem<String>(
@@ -76,14 +77,19 @@ class _BCOMAttendenceScreenState extends State<BCOMAttendenceScreen> {
                 },
               ),
               isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(color: kPrimaryColor))
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(height: 0.30.sh),
+                        CircularProgressIndicator(color: kPrimaryColor),
+                      ],
+                    )
                   : bcomAttendenceList.isEmpty
                       ? Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.15,
+                              height: MediaQuery.of(context).size.height * 0.1,
                             ),
                             Lottie.asset('assets/icons/Circle.json'),
                           ],

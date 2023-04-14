@@ -1,7 +1,6 @@
 import 'package:admin_app/home/attendence/bba_attendence.dart';
 import 'package:admin_app/home/attendence/bca_attendence.dart';
 import 'package:admin_app/home/attendence/bcom_attendence.dart';
-
 import '../../libs.dart';
 
 class AttendenceScreen extends StatefulWidget {
@@ -51,22 +50,38 @@ class _AttendenceScreenState extends State<AttendenceScreen>
         ),
         actions: [
           IconButton(
-            onPressed: () => showDialog(
-              context: context,
-              builder: (context) => Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  QrImage(
-                    data: DateTime.now().toString(),
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.all(10),
-                    version: QrVersions.auto,
-                    size: 250.0,
-                  ),
-                ],
-              ),
-            ),
+            onPressed: () async {
+              final result = await showDialog<bool>(
+                barrierDismissible: false,
+                context: context,
+                builder: (context) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    QrImage(
+                      data: '1234567',
+                      backgroundColor: Colors.white,
+                      padding: const EdgeInsets.all(10),
+                      version: QrVersions.auto,
+                      size: 250.0,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    MaterialButton(
+                        onPressed: () {
+                          Navigator.pop(context, true);
+                        },
+                        child: const Text('Done'))
+                  ],
+                ),
+              );
+              if (result == true) {
+                setState(() {
+                  
+                });
+              }
+            },
             color: Colors.white,
             icon: const Icon(Icons.qr_code_2_outlined),
           ),
@@ -92,13 +107,19 @@ class _AttendenceScreenState extends State<AttendenceScreen>
           ],
         ),
       ),
-      body: TabBarView(
-        controller: tabController,
-        children: const [
-          BCAAttendenceScreen(args: "BCA"),
-          BBAAttendenceScreen(args: "BBA"),
-          BCOMAttendenceScreen(args: "BCOM"),
-        ],
+      body: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (notification) {
+          notification.disallowIndicator();
+          return true;
+        },
+        child: TabBarView(
+          controller: tabController,
+          children: const [
+            BCAAttendenceScreen(args: "BCA"),
+            BBAAttendenceScreen(args: "BBA"),
+            BCOMAttendenceScreen(args: "BCOM"),
+          ],
+        ),
       ),
     );
   }

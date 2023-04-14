@@ -1,5 +1,6 @@
 // **** Student ****
 
+
 import 'dart:collection';
 
 class Student {
@@ -86,7 +87,7 @@ class Student {
 
 class Attendence {
   String? name, stream, semester, image;
-  double? attendence;
+  num? attendence;
   int? key;
 
   Attendence({

@@ -77,7 +77,6 @@ class AttendenceApi {
           attendenceDataList.sort((a, b) => a.key!.compareTo(b.key!));
         }
       });
-      print('====>>>>> ${attendenceDataList.length}');
     });
   }
 }

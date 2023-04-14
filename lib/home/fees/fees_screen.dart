@@ -1,77 +1,76 @@
+import 'package:admin_app/home/fees/bba_fees_screen.dart';
+import 'package:admin_app/home/fees/bca_fees_screen.dart';
+import 'package:admin_app/home/fees/bcom_fees_screen.dart';
+
 import '../../libs.dart';
 
-class FeesScreen extends StatelessWidget {
+class FeesScreen extends StatefulWidget {
   const FeesScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FeesScreen> createState() => _FeesScreenState();
+}
+
+class _FeesScreenState extends State<FeesScreen> with TickerProviderStateMixin {
+  TextEditingController searchController = TextEditingController();
+  TabController? tabController;
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appbar(context, title: 'Fees'),
-
-      body: animation(
-        context,
-        seconds: 1000,
-        verticalOffset: 0.1,
-        child: Center(
-          child: Lottie.asset('assets/icons/Circle.json'),
-        ),
-      ),
-      // body: ListView(
-      //   padding: const EdgeInsets.all(15),
-      //   physics: const BouncingScrollPhysics(),
-      //   children: [
-      //     FeeStudentField(
-      //         title: "Bachelor of Computer Application", onPress: () {
-
-      //     }),
-      //     sizedBox,
-      //     FeeStudentField(title: "Bachelor of Commerce", onPress: () {}),
-      //     sizedBox,
-      //     FeeStudentField(
-      //         title: "Bachelor of Business Administration", onPress: () {}),
-      //   ],
-      // ),
-      floatingActionButton: floatingActionButton(
-        context,
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddFeesScreen()));
-        },
-      ),
-    );
-  }
-}
-
-class FeeStudentField extends StatelessWidget {
-  const FeeStudentField({Key? key, required this.title, required this.onPress})
-      : super(key: key);
-
-  final String title;
-  final VoidCallback onPress;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPress,
-      child: Container(
-        height: 150,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: kPrimaryColor,
-          borderRadius: BorderRadius.circular(kDefaultPadding),
-        ),
-        child: Center(
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: kTextWhiteColor,
-            ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'Fees',
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
           ),
         ),
+        elevation: 0,
+        backgroundColor: kPrimaryColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+          ),
+        ),
+        bottom: TabBar(
+          controller: tabController,
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicatorWeight: 2.5,
+          indicatorColor: Colors.white,
+          tabs: const [
+            Text(
+              'BCA',
+              style: TextStyle(fontSize: 18),
+            ),
+            Text(
+              'BBA',
+              style: TextStyle(fontSize: 18),
+            ),
+            Text(
+              'BCOM',
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: tabController,
+        children: const [
+          BCAFeesScreen(),
+          BBAFeesScreen(),
+          BCOMFeesScreen(),
+        ],
       ),
     );
   }

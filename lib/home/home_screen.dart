@@ -92,12 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 await SharedPreferences.getInstance();
                             pref.remove("userID");
                             AppNavigation.shared.goNextFromSplash();
-                            // Navigator.pushReplacement(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const LoginScreen(),
-                            //   ),
-                            // );
+
                             setState(() {});
                           },
                           child: Container(
