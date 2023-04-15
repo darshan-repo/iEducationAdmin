@@ -22,9 +22,12 @@ class _BBAAttendenceScreenState extends State<BBAAttendenceScreen> {
     'SEM - 5',
     'SEM - 6',
   ];
-  List<Attendence> bbaAttendenceList = [];
 
   bool isLoading = false;
+  List<Attendence> bbaAttendenceList = [];
+  List<Attendence> searchBBAAttendenceList = [];
+  // List<Attendence> semWiseList = [];
+
   @override
   void initState() {
     showBBAAttendence();
@@ -53,6 +56,15 @@ class _BBAAttendenceScreenState extends State<BBAAttendenceScreen> {
               searching(
                 context,
                 controller: bbaAttendenceSearch,
+                textFieldOnChanged: (value) {
+                  setState(() {
+                    searchBBAAttendenceList = bbaAttendenceList
+                        .where((item) => item.name!
+                            .toLowerCase()
+                            .contains(value.toLowerCase()))
+                        .toList();
+                  });
+                },
                 items: semester
                     .map(
                       (semester) => DropdownMenuItem<String>(
@@ -72,6 +84,15 @@ class _BBAAttendenceScreenState extends State<BBAAttendenceScreen> {
                 onChanged: (value) {
                   setState(() {
                     selectedSemSemester = value as String;
+                    // if (selectedSemSemester == 'All') {
+                    //   semWiseList = bcaAttendenceList;
+                    // } else if (selectedSemSemester == 'SEM - 6') {
+                    //   semWiseList = bcaAttendenceList
+                    //       .where((item) =>
+                    //           item.semester!.contains(value.toLowerCase()))
+                    //       .toList();
+                    //   print(semWiseList[0].toJson());
+                    // }
                   });
                 },
               ),
@@ -104,55 +125,150 @@ class _BBAAttendenceScreenState extends State<BBAAttendenceScreen> {
                               context,
                               seconds: 500,
                               verticalOffset: 100,
-                              child: ListView.builder(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                itemCount: bbaAttendenceList.length,
-                                itemBuilder: (context, index) {
-                                  return Card(
-                                    color: kSecondaryColor,
-                                    elevation: 3,
-                                    child: ListTile(
-                                      leading: CachedNetworkImage(
-                                        imageUrl: bbaAttendenceList[index]
-                                            .image
-                                            .toString(),
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                          width: 50,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.cover,
+                              child: searchBBAAttendenceList.isEmpty &&
+                                      bbaAttendenceSearch.text.isEmpty
+                                  ? ListView.builder(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      itemCount: bbaAttendenceList.length,
+                                      itemBuilder: (context, index) {
+                                        return Card(
+                                          color: kSecondaryColor,
+                                          elevation: 3,
+                                          child: ListTile(
+                                            leading: CachedNetworkImage(
+                                              imageUrl: bbaAttendenceList[index]
+                                                  .image
+                                                  .toString(),
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                width: 50,
+                                                height: 100,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  CircularProgressIndicator(
+                                                color: kPrimaryColor,
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
+                                            ),
+                                            title: Text(
+                                              bbaAttendenceList[index].name!,
+                                              style: TextStyle(
+                                                  color: kPrimaryColor),
+                                            ),
+                                            subtitle: Text(
+                                              bbaAttendenceList[index]
+                                                  .semester!,
+                                            ),
+                                            trailing: Text(
+                                              '${bbaAttendenceList[index].attendence.toString()} %',
+                                              style: TextStyle(
+                                                color: (bbaAttendenceList[index]
+                                                            .attendence! <
+                                                        70)
+                                                    ? Colors.red
+                                                    : (bbaAttendenceList[index]
+                                                                    .attendence! >=
+                                                                70 &&
+                                                            bbaAttendenceList[
+                                                                        index]
+                                                                    .attendence! <
+                                                                85)
+                                                        ? Colors.orange
+                                                        : Colors.green,
+                                              ),
                                             ),
                                           ),
+                                        );
+                                      },
+                                    )
+                                  : searchBBAAttendenceList.isEmpty &&
+                                          bbaAttendenceSearch.text.isNotEmpty
+                                      ? const Text('Student Not Found')
+                                      : ListView.builder(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5),
+                                          itemCount:
+                                              searchBBAAttendenceList.length,
+                                          itemBuilder: (context, index) {
+                                            return Card(
+                                              color: kSecondaryColor,
+                                              elevation: 3,
+                                              child: ListTile(
+                                                leading: CachedNetworkImage(
+                                                  imageUrl:
+                                                      searchBBAAttendenceList[
+                                                              index]
+                                                          .image
+                                                          .toString(),
+                                                  imageBuilder: (context,
+                                                          imageProvider) =>
+                                                      Container(
+                                                    width: 50,
+                                                    height: 100,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(
+                                                    color: kPrimaryColor,
+                                                  ),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
+                                                ),
+                                                title: Text(
+                                                  searchBBAAttendenceList[index]
+                                                      .name!,
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor),
+                                                ),
+                                                subtitle: Text(
+                                                  searchBBAAttendenceList[index]
+                                                      .semester!,
+                                                ),
+                                                trailing: Text(
+                                                  '${searchBBAAttendenceList[index].attendence.toString()} %',
+                                                  style: TextStyle(
+                                                    color: (searchBBAAttendenceList[
+                                                                    index]
+                                                                .attendence! <
+                                                            70)
+                                                        ? Colors.red
+                                                        : (searchBBAAttendenceList[
+                                                                            index]
+                                                                        .attendence! >=
+                                                                    70 &&
+                                                                searchBBAAttendenceList[
+                                                                            index]
+                                                                        .attendence! <
+                                                                    85)
+                                                            ? Colors.orange
+                                                            : Colors.green,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
-                                        placeholder: (context, url) =>
-                                            CircularProgressIndicator(
-                                          color: kPrimaryColor,
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
-                                      ),
-                                      title: Text(
-                                        bbaAttendenceList[index].name!,
-                                      ),
-                                      subtitle: Text(
-                                        bbaAttendenceList[index].semester!,
-                                      ),
-                                      trailing: Text(
-                                        bbaAttendenceList[index]
-                                            .attendence
-                                            .toString(),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
                             ),
                           ),
                         )

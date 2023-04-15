@@ -6,6 +6,7 @@ Widget searching(
   required List<DropdownMenuItem<Object>>? items,
   Object? value,
   void Function(Object?)? onChanged,
+  void Function(String)? textFieldOnChanged,
 }) {
   return Row(
     children: [
@@ -19,6 +20,7 @@ Widget searching(
             color: kPrimaryColor,
             fontWeight: FontWeight.w800,
           ),
+          onChanged: textFieldOnChanged,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(

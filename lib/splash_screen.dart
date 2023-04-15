@@ -23,15 +23,11 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value:
-            SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.white),
-        child: Center(
-          child: Image.asset(
-            'assets/images/ieducation.png',
-            height: MediaQuery.of(context).size.height * 0.5,
-            width: MediaQuery.of(context).size.width * 0.5,
-          ),
+      body: Center(
+        child: Image.asset(
+          'assets/images/ieducation.png',
+          height: MediaQuery.of(context).size.height * 0.5,
+          width: MediaQuery.of(context).size.width * 0.5,
         ),
       ),
     );
