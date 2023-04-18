@@ -31,10 +31,10 @@ class _StudentListScreenState extends State<StudentListScreen> {
     super.initState();
   }
 
-  getData() async {
-    StudentDataApi.studentDataList = await StudentDataApi.fetchData();
-    await StudentDataApi.sortingData(selectedSemSemester!);
-  }
+  // Future<void> getData() async {
+  //   StudentDataApi.studentDataList = await StudentDataApi.fetchData();
+  //   await StudentDataApi.sortingData(selectedSemSemester!);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -121,8 +121,16 @@ class _StudentListScreenState extends State<StudentListScreen> {
                                             child: StudentDataApi
                                                 .studSemData[index].stream,
                                           );
+                                          await AttendenceApi.deleteStdData(
+                                            key: StudentDataApi
+                                                .studSemData[index].key
+                                                .toString(),
+                                            child: StudentDataApi
+                                                .studSemData[index].stream,
+                                          );
                                           Navigator.pop(context);
-                                          await getData();
+                                          // await getData();
+                                          await StudentDataApi.fetchData();
                                           await StudentDataApi.sortingData(
                                               selectedSemSemester!);
                                         },

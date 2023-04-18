@@ -64,7 +64,7 @@ class AttendenceApi {
   static List<Attendence> attendenceDataList = [];
   static String keys = "";
 
-  static  fetchData() async {
+  static fetchData() async {
     attendenceDataList.clear();
     await db.once().then((value) {
       Map data =
@@ -78,6 +78,10 @@ class AttendenceApi {
         }
       });
     });
+  }
+
+  static deleteStdData({required String key, required String child}) async {
+    await db.child(child).child(key).remove();
   }
 }
 

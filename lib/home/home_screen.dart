@@ -4,7 +4,7 @@ import 'package:admin_app/common/widget_animation.dart/fade_animation.dart';
 import 'package:admin_app/constant.dart';
 import 'package:admin_app/database/database_api.dart';
 import 'package:admin_app/home/attendence/attendence_screen.dart';
-import 'package:admin_app/home/fees/fees_screen.dart';
+import 'package:admin_app/home/fees/fees_list_screen.dart';
 import 'package:admin_app/home/home_page_widget.dart';
 import 'package:admin_app/home/teaching_work/teaching_work_screen.dart';
 import 'package:admin_app/navigation/app_navigation.dart';
@@ -278,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const FeesScreen(),
+                              builder: (context) => const FeesListScreen(),
                             ),
                           );
                           setState(() {});

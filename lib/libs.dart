@@ -40,7 +40,6 @@ export 'package:admin_app/common/profile_column.dart';
 export 'package:admin_app/common/container.dart';
 export 'package:admin_app/home/time_table/time_table_widget.dart';
 export 'package:admin_app/home/attendence/attendence_screen.dart';
-export 'package:admin_app/home/fees/fees_screen.dart';
 export 'package:admin_app/home/home_page_widget.dart';
 export 'package:admin_app/home/teaching_work/teaching_work_screen.dart';
 export 'package:admin_app/login_screen/login_screen.dart';

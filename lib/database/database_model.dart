@@ -1,6 +1,5 @@
 // **** Student ****
 
-
 import 'dart:collection';
 
 class Student {
@@ -20,6 +19,7 @@ class Student {
       spidNo,
       phoneNo,
       dob;
+  bool isShowButton;
   int key;
 
   Student({
@@ -40,6 +40,7 @@ class Student {
     required this.spidNo,
     required this.bloodGroup,
     required this.key,
+    this.isShowButton = false,
   });
 
   factory Student.fromJson(Map<dynamic, dynamic> json) => Student(
@@ -60,6 +61,7 @@ class Student {
         spidNo: json['spidNo'],
         stream: json['stream'],
         key: json['key'],
+        isShowButton: json['isShowButton'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -80,6 +82,7 @@ class Student {
         'enrollNo': enrollNo,
         'spidNo': spidNo,
         'bloodGroup': bloodGroup,
+        'isShowButton': isShowButton,
       };
 }
 

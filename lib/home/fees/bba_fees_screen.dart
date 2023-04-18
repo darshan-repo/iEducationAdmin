@@ -2,7 +2,8 @@ import 'package:admin_app/common/searching_filter.dart';
 import 'package:admin_app/libs.dart';
 
 class BBAFeesScreen extends StatefulWidget {
-  const BBAFeesScreen({super.key});
+  final String args;
+  const BBAFeesScreen({super.key, required this.args});
 
   @override
   State<BBAFeesScreen> createState() => _BBAFeesScreenState();

@@ -70,3 +70,9 @@ TextEditingController txtResultTime = TextEditingController();
 TextEditingController txtAssignmentSubject = TextEditingController();
 TextEditingController txtAssignmentDate = TextEditingController();
 TextEditingController txtAssignmentTime = TextEditingController();
+
+// **** Fees ****
+TextEditingController txtFeesStudentController = TextEditingController();
+TextEditingController txtTotalFeesController = TextEditingController();
+TextEditingController txtPaidFeesController = TextEditingController();
+TextEditingController txtRemainingFeesController = TextEditingController();

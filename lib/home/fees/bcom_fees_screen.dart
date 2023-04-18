@@ -2,7 +2,8 @@ import 'package:admin_app/common/searching_filter.dart';
 import 'package:admin_app/libs.dart';
 
 class BCOMFeesScreen extends StatefulWidget {
-  const BCOMFeesScreen({super.key});
+  final String args;
+  const BCOMFeesScreen({super.key, required this.args});
 
   @override
   State<BCOMFeesScreen> createState() => _BCOMFeesScreenState();

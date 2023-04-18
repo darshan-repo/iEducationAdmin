@@ -106,25 +106,25 @@ class AddStudentDetailsState extends State<AddStudentDetails> {
                       textFormField(
                         txtController: txtStudentFnameController,
                         prefixIcon: Icons.person,
-                        hintText: 'First Name',
+                        hintText: 'Surname',
                         validator: (value) =>
-                            value!.isEmpty ? " Please Enter First Name" : null,
+                            value!.isEmpty ? " Please Enter Surname" : null,
                       ),
                       labelText(text: 'Middle Name'),
                       textFormField(
                         txtController: txtStudentMNameController,
                         prefixIcon: Icons.person,
-                        hintText: 'Middle Name',
+                        hintText: 'Student Name',
                         validator: (value) =>
-                            value!.isEmpty ? " Please Enter Middle Name" : null,
+                            value!.isEmpty ? " Please Enter Student Name" : null,
                       ),
                       labelText(text: 'Last Name'),
                       textFormField(
                         txtController: txtStudentLnameController,
                         prefixIcon: Icons.person,
-                        hintText: 'Last Name',
+                        hintText: 'Father Name',
                         validator: (value) =>
-                            value!.isEmpty ? "Please Enter Last Name" : null,
+                            value!.isEmpty ? "Please Enter Father Name" : null,
                       ),
                       labelText(text: 'Email'),
                       textFormField(
@@ -172,6 +172,7 @@ class AddStudentDetailsState extends State<AddStudentDetails> {
                         },
                         onPressed: () async {
                           DateTime? pickedDate = await showDatePicker(
+                            
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime(1950),
