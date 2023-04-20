@@ -2,16 +2,11 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '../../libs.dart';
 
-// const Color kPrimaryColor = Color(0xFF345FB4);
-// const Color kSecondaryColor = Color(0xFFF0F5FF);
 Color kPrimaryColor = HexColor('#5b3e90');
 Color kSecondaryColor = HexColor('#efecf4');
 const Color kTextBlackColor = Color(0xFF313131);
 const Color kTextWhiteColor = Color(0xFFFFFFFF);
-const Color kContainerColor = Color(0xFF777777);
 const Color kOtherColor = Color(0xFFF4F6F7);
-const Color kTextLighterColor = Color(0xFFA5A5A5);
-const Color kErrorBorderColor = Color(0xFFE74C3C);
 
 const kDefaultPadding = 20.0;
 

@@ -32,7 +32,7 @@ class _TimeTableScreenState extends State<TimeTableScreen> {
       appBar: appbar(context, title: 'TimeTable'),
       body: SafeArea(
         child: loading
-            ?  Center(
+            ? Center(
                 child: CircularProgressIndicator(color: kPrimaryColor),
               )
             : TimeTableApi.timeTableDataList.isEmpty
@@ -48,7 +48,7 @@ class _TimeTableScreenState extends State<TimeTableScreen> {
                     },
                     child: animation(
                       context,
-                      seconds: 600,
+                      seconds: 500,
                       horizontalOffset: 100,
                       child: ListView.builder(
                         itemCount: TimeTableApi.timeTableDataList.length,
@@ -102,37 +102,32 @@ class _TimeTableScreenState extends State<TimeTableScreen> {
                                         confirmDismiss: (direction) {
                                           return showDialog(
                                             context: context,
-                                            builder: (context) => AlertDialog(
-                                              content: const Text(
-                                                  'Sure You Want To Remove?'),
-                                              actions: [
-                                                MaterialButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text('Cancel'),
-                                                ),
-                                                MaterialButton(
-                                                  onPressed: () async {
-                                                    await TimeTableApi
-                                                        .deleteTimeTableData(
-                                                      key: TimeTableApi
-                                                          .timeTableDataList[
-                                                              index]
-                                                          .tb[index1]
-                                                          .key
-                                                          .toString(),
-                                                      child: TimeTableApi
-                                                          .timeTableDataList[
-                                                              index]
-                                                          .lectureDate,
-                                                    );
-                                                    Navigator.pop(context);
-                                                    getData();
-                                                  },
-                                                  child: const Text('Ok'),
-                                                ),
-                                              ],
+                                            barrierDismissible: false,
+                                            builder: (context) => alertDialog(
+                                              context,
+                                              icon: Icons.delete,
+                                              title: "Remove",
+                                              subTitle:
+                                                  "Sure you want to Remove?",
+                                              cancleOnTap: (() {
+                                                Navigator.pop(context);
+                                                setState(() {});
+                                              }),
+                                              okOnTap: (() async {
+                                                await TimeTableApi
+                                                    .deleteTimeTableData(
+                                                  key: TimeTableApi
+                                                      .timeTableDataList[index]
+                                                      .tb[index1]
+                                                      .key
+                                                      .toString(),
+                                                  child: TimeTableApi
+                                                      .timeTableDataList[index]
+                                                      .lectureDate,
+                                                );
+                                                Navigator.pop(context);
+                                                getData();
+                                              }),
                                             ),
                                           );
                                         },

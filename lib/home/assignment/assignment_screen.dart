@@ -73,7 +73,7 @@ class AssignmentScreenState extends State<AssignmentScreen> {
                   },
                   child: animation(
                     context,
-                    seconds: 1000,
+                    seconds: 500,
                     verticalOffset: -100,
                     child: ListView.builder(
                       itemCount: AssignmentApi.assignmentDataList.length,
@@ -86,28 +86,24 @@ class AssignmentScreenState extends State<AssignmentScreen> {
                         confirmDismiss: (direction) {
                           return showDialog(
                             context: context,
-                            builder: (context) => AlertDialog(
-                              content: const Text('Sure You Want To Remove?'),
-                              actions: [
-                                MaterialButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Cancel'),
-                                ),
-                                MaterialButton(
-                                  onPressed: () async {
-                                    await AssignmentApi.deleteData(
-                                      key: AssignmentApi
-                                          .assignmentDataList[index].key
-                                          .toString(),
-                                    );
-                                    Navigator.pop(context);
-                                    await getData();
-                                  },
-                                  child: const Text('Ok'),
-                                ),
-                              ],
+                            builder: (context) => alertDialog(
+                              context,
+                              icon: Icons.delete,
+                              title: "Remove",
+                              subTitle: "Sure you want to Remove?",
+                              cancleOnTap: (() {
+                                Navigator.pop(context);
+                                setState(() {});
+                              }),
+                              okOnTap: (() async {
+                                await AssignmentApi.deleteData(
+                                  key: AssignmentApi
+                                      .assignmentDataList[index].key
+                                      .toString(),
+                                );
+                                Navigator.pop(context);
+                                await getData();
+                              }),
                             ),
                           );
                         },

@@ -101,44 +101,38 @@ class _StudentListScreenState extends State<StudentListScreen> {
                               confirmDismiss: (direction) {
                                 return showDialog(
                                   context: context,
-                                  builder: (context) => AlertDialog(
-                                    content: const Text(
-                                      'Sure You Want To Remove?',
-                                    ),
-                                    actions: [
-                                      MaterialButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Cancel'),
-                                      ),
-                                      MaterialButton(
-                                        onPressed: () async {
-                                          await StudentDataApi.deleteStdData(
-                                            key: StudentDataApi
-                                                .studSemData[index].key
-                                                .toString(),
-                                            child: StudentDataApi
-                                                .studSemData[index].stream,
-                                          );
-                                          await AttendenceApi.deleteStdData(
-                                            key: StudentDataApi
-                                                .studSemData[index].key
-                                                .toString(),
-                                            child: StudentDataApi
-                                                .studSemData[index].stream,
-                                          );
-                                          Navigator.pop(context);
-                                          // await getData();
-                                          await StudentDataApi.fetchData();
-                                          await StudentDataApi.sortingData(
-                                              selectedSemSemester!);
-                                        },
-                                        child: const Text('Ok'),
-                                      ),
-                                    ],
-                                  ),
                                   barrierDismissible: false,
+                                  builder: (context) => alertDialog(
+                                    context,
+                                    icon: Icons.delete,
+                                    title: "Remove",
+                                    subTitle: "Sure you want to Remove?",
+                                    cancleOnTap: (() {
+                                      Navigator.pop(context);
+                                      setState(() {});
+                                    }),
+                                    okOnTap: (() async {
+                                      await StudentDataApi.deleteStdData(
+                                        key: StudentDataApi
+                                            .studSemData[index].key
+                                            .toString(),
+                                        child: StudentDataApi
+                                            .studSemData[index].stream,
+                                      );
+                                      await AttendenceApi.deleteStdData(
+                                        key: StudentDataApi
+                                            .studSemData[index].key
+                                            .toString(),
+                                        child: StudentDataApi
+                                            .studSemData[index].stream,
+                                      );
+                                      Navigator.pop(context);
+                                      // await getData();
+                                      await StudentDataApi.fetchData();
+                                      await StudentDataApi.sortingData(
+                                          selectedSemSemester!);
+                                    }),
+                                  ),
                                 );
                               },
                               child: GestureDetector(

@@ -47,33 +47,29 @@ class _JobVacancyNoticeState extends State<JobVacancyNotice> {
                     child: ListView.builder(
                       itemCount: JobVacancyApi.jobVacancyDataList.length,
                       itemBuilder: (context, index) => Dismissible(
-                        key: Key(JobVacancyApi.jobVacancyDataList[index]
-                            .toString()),
+                        key: Key(
+                            JobVacancyApi.jobVacancyDataList[index].toString()),
                         confirmDismiss: (direction) {
                           return showDialog(
                             context: context,
-                            builder: (context) => AlertDialog(
-                              content: const Text('Sure You Want To Remove?'),
-                              actions: [
-                                MaterialButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Cancel'),
-                                ),
-                                MaterialButton(
-                                  onPressed: () async {
-                                    await JobVacancyApi.deleteData(
-                                      key: JobVacancyApi
-                                          .jobVacancyDataList[index].key
-                                          .toString(),
-                                    );
-                                    Navigator.pop(context);
-                                    await getData();
-                                  },
-                                  child: const Text('Ok'),
-                                ),
-                              ],
+                            builder: (context) => alertDialog(
+                              context,
+                              icon: Icons.delete,
+                              title: "Remove",
+                              subTitle: "Sure you want to Remove?",
+                              cancleOnTap: (() {
+                                Navigator.pop(context);
+                                setState(() {});
+                              }),
+                              okOnTap: (() async {
+                                await JobVacancyApi.deleteData(
+                                  key: JobVacancyApi
+                                      .jobVacancyDataList[index].key
+                                      .toString(),
+                                );
+                                Navigator.pop(context);
+                                await getData();
+                              }),
                             ),
                           );
                         },

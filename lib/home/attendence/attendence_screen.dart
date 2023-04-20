@@ -39,13 +39,8 @@ class _AttendenceScreenState extends State<AttendenceScreen>
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: animation(
-            context,
-            seconds: 500,
-            horizontalOffset: 100,
-            child: const Icon(
-              Icons.arrow_back_ios,
-            ),
+          icon: const Icon(
+            Icons.arrow_back_ios,
           ),
         ),
         actions: [
@@ -77,9 +72,7 @@ class _AttendenceScreenState extends State<AttendenceScreen>
                 ),
               );
               if (result == true) {
-                setState(() {
-                  
-                });
+                setState(() {});
               }
             },
             color: Colors.white,

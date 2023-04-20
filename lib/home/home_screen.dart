@@ -57,59 +57,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   barrierDismissible: false,
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      title: Row(
-                        children: const [
-                          Icon(Icons.logout),
-                          kWidthSizedBox,
-                          Text("Logout"),
-                        ],
-                      ),
-                      content: const Text("Sure you want to logout"),
-                      actions: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                            setState(() {});
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: const Center(
-                              child: Text(
-                                'Cancle',
-                                style: TextStyle(color: kOtherColor),
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            SharedPreferences pref =
-                                await SharedPreferences.getInstance();
-                            pref.remove("userID");
-                            AppNavigation.shared.goNextFromSplash();
+                    return alertDialog(
+                      context,
+                      icon: Icons.logout,
+                      title: "Logout",
+                      subTitle: "Sure you want to Logout?",
+                      cancleOnTap: (() {
+                        Navigator.pop(context);
+                        setState(() {});
+                      }),
+                      okOnTap: (() async {
+                        SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+                        pref.remove("userID");
+                        AppNavigation.shared.goNextFromSplash();
 
-                            setState(() {});
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: const Center(
-                              child: Text(
-                                'Ok',
-                                style: TextStyle(color: kOtherColor),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                        setState(() {});
+                      }),
                     );
                   },
                 );

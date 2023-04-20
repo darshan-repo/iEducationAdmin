@@ -78,26 +78,24 @@ Widget studentContainer(
   return GestureDetector(
     behavior: HitTestBehavior.translucent,
     onTap: onTap,
-    child: Padding(
-      padding: const EdgeInsets.all(10),
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.15,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10),
-          ),
-          color: kPrimaryColor,
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+      height: MediaQuery.of(context).size.height * 0.15,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
         ),
-        child: Center(
-          child: Text(
-            titleText,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: MediaQuery.of(context).size.width * 0.05,
-            ),
+        color: kPrimaryColor,
+      ),
+      child: Center(
+        child: Text(
+          titleText,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: MediaQuery.of(context).size.width * 0.05,
           ),
         ),
       ),

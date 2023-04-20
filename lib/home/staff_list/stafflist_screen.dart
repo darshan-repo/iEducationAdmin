@@ -57,32 +57,25 @@ class _StaffListScreenState extends State<StaffListScreen> {
                             confirmDismiss: (direction) {
                               return showDialog(
                                 context: context,
-                                builder: (context) => AlertDialog(
-                                  content: const Text(
-                                    'Sure You Want To Remove?',
-                                  ),
-                                  actions: [
-                                    MaterialButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Cancel'),
-                                    ),
-                                    MaterialButton(
-                                      onPressed: () async {
-                                        await StaffListApi.deleteData(
-                                          key: StaffListApi
-                                              .staffDataList[index].key
-                                              .toString(),
-                                        );
-                                        Navigator.pop(context);
-                                        await getData();
-                                      },
-                                      child: const Text('Ok'),
-                                    ),
-                                  ],
-                                ),
                                 barrierDismissible: false,
+                                builder: (context) => alertDialog(
+                                  context,
+                                  icon: Icons.delete,
+                                  title: "Remove",
+                                  subTitle: "Sure you want to Remove?",
+                                  cancleOnTap: (() {
+                                    Navigator.pop(context);
+                                    setState(() {});
+                                  }),
+                                  okOnTap: (() async {
+                                    await StaffListApi.deleteData(
+                                      key: StaffListApi.staffDataList[index].key
+                                          .toString(),
+                                    );
+                                    Navigator.pop(context);
+                                    await getData();
+                                  }),
+                                ),
                               );
                             },
                             child: GestureDetector(

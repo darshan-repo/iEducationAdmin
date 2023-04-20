@@ -51,3 +51,69 @@ class HomeCard extends StatelessWidget {
     );
   }
 }
+
+Widget alertDialog(
+  BuildContext context, {
+  IconData? icon,
+  String title = '',
+  String subTitle = '',
+  void Function()? cancleOnTap,
+  void Function()? okOnTap,
+}) {
+  return AlertDialog(
+    backgroundColor: kSecondaryColor,
+    title: Row(
+      children: [
+        Icon(
+          icon,
+          color: kPrimaryColor,
+        ),
+        kWidthSizedBox,
+        Text(
+          title,
+          style: TextStyle(color: kPrimaryColor),
+        ),
+      ],
+    ),
+    content: Text(
+      subTitle,
+      style: TextStyle(color: kPrimaryColor),
+    ),
+    actions: [
+      InkWell(
+        onTap: cancleOnTap,
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.05,
+          width: MediaQuery.of(context).size.width * 0.2,
+          decoration: BoxDecoration(
+            color: kPrimaryColor,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Center(
+            child: Text(
+              'Cancle',
+              style: TextStyle(color: kSecondaryColor),
+            ),
+          ),
+        ),
+      ),
+      InkWell(
+        onTap: okOnTap,
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.05,
+          width: MediaQuery.of(context).size.width * 0.2,
+          decoration: BoxDecoration(
+            color: kPrimaryColor,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Center(
+            child: Text(
+              'Ok',
+              style: TextStyle(color: kSecondaryColor),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}

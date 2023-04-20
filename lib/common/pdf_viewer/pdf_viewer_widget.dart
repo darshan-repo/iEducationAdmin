@@ -38,7 +38,7 @@ class PdfViewerPageState extends State<PdfViewerPage> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? const Center(child: CircularProgressIndicator())
+        ? Center(child: CircularProgressIndicator(color: kPrimaryColor))
         : Center(
             child: PDFView(
               filePath: pFile.path,

@@ -4,7 +4,7 @@ Future viewPdfs(BuildContext context,
     {String? pdfUrl, String? title, void Function(int?, int?)? onPageChanged}) {
   int currentPage = 0, totalPage = 1;
   return showDialog(
-    barrierDismissible: false,
+    // barrierDismissible: false,
     context: context,
     builder: (context) => StatefulBuilder(builder: (context, setState) {
       return Center(
@@ -25,7 +25,10 @@ Future viewPdfs(BuildContext context,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(title ?? ''),
+                    SizedBox(
+                      width: 0.7.sw,
+                      child: Text(title ?? ''),
+                    ),
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: const Icon(
