@@ -115,8 +115,9 @@ class AddStudentDetailsState extends State<AddStudentDetails> {
                         txtController: txtStudentMNameController,
                         prefixIcon: Icons.person,
                         hintText: 'Student Name',
-                        validator: (value) =>
-                            value!.isEmpty ? " Please Enter Student Name" : null,
+                        validator: (value) => value!.isEmpty
+                            ? " Please Enter Student Name"
+                            : null,
                       ),
                       labelText(text: 'Last Name'),
                       textFormField(
@@ -172,7 +173,23 @@ class AddStudentDetailsState extends State<AddStudentDetails> {
                         },
                         onPressed: () async {
                           DateTime? pickedDate = await showDatePicker(
-                            
+                              builder: (context, child) {
+                                return Theme(
+                                  data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.light(
+                                      primary: kPrimaryColor,
+                                      onPrimary: kSecondaryColor,
+                                      onSurface: kPrimaryColor,
+                                    ),
+                                    textButtonTheme: TextButtonThemeData(
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: kPrimaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                  child: child!,
+                                );
+                              },
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime(1950),
@@ -481,7 +498,7 @@ class AddStudentDetailsState extends State<AddStudentDetails> {
               } else {
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Please Enter Image"),
+                  content: Text("Please Select Image"),
                   backgroundColor: Colors.red,
                   margin: EdgeInsets.all(20),
                   behavior: SnackBarBehavior.floating,

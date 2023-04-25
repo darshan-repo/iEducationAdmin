@@ -225,6 +225,23 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                           initialDate: DateTime.now(),
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2025),
+                          builder: (context, child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: kPrimaryColor,
+                                  onPrimary: kSecondaryColor,
+                                  onSurface: kPrimaryColor,
+                                ),
+                                textButtonTheme: TextButtonThemeData(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: kPrimaryColor,
+                                  ),
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
                         );
                         if (newDate == null) return;
                         setState(() {
@@ -250,6 +267,23 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                         TimeOfDay? pickedTime = await showTimePicker(
                           initialTime: TimeOfDay.now(),
                           context: context,
+                          builder: (context, child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: kPrimaryColor,
+                                  onPrimary: kSecondaryColor,
+                                  onSurface: kPrimaryColor,
+                                ),
+                                textButtonTheme: TextButtonThemeData(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: kPrimaryColor,
+                                  ),
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
                         );
                         if (pickedTime != null) {
                           DateTime parsedTime = DateFormat.jm()

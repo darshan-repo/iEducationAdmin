@@ -112,7 +112,7 @@ class _AddMaterialScreenState extends State<AddMaterialScreen> {
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.02,
                               ),
-                               Icon(
+                              Icon(
                                 Icons.file_copy_outlined,
                                 color: kPrimaryColor,
                               ),
@@ -140,7 +140,7 @@ class _AddMaterialScreenState extends State<AddMaterialScreen> {
                                   selectFile();
                                   setState(() {});
                                 },
-                                icon:  Icon(
+                                icon: Icon(
                                   Icons.file_upload,
                                   color: kPrimaryColor,
                                 ),
@@ -228,6 +228,23 @@ class _AddMaterialScreenState extends State<AddMaterialScreen> {
                             initialDate: DateTime.now(),
                             firstDate: DateTime(2000),
                             lastDate: DateTime(2025),
+                            builder: (context, child) {
+                              return Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.light(
+                                    primary: kPrimaryColor,
+                                    onPrimary: kSecondaryColor,
+                                    onSurface: kPrimaryColor,
+                                  ),
+                                  textButtonTheme: TextButtonThemeData(
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: kPrimaryColor,
+                                    ),
+                                  ),
+                                ),
+                                child: child!,
+                              );
+                            },
                           );
                           if (newDate == null) return;
                           setState(() {
@@ -253,6 +270,23 @@ class _AddMaterialScreenState extends State<AddMaterialScreen> {
                           TimeOfDay? pickedTime = await showTimePicker(
                             initialTime: TimeOfDay.now(),
                             context: context,
+                            builder: (context, child) {
+                              return Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.light(
+                                    primary: kPrimaryColor,
+                                    onPrimary: kSecondaryColor,
+                                    onSurface: kPrimaryColor,
+                                  ),
+                                  textButtonTheme: TextButtonThemeData(
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: kPrimaryColor,
+                                    ),
+                                  ),
+                                ),
+                                child: child!,
+                              );
+                            },
                           );
                           if (pickedTime != null) {
                             DateTime parsedTime = DateFormat.jm()

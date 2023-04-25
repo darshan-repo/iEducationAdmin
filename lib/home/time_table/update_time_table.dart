@@ -155,6 +155,23 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
                           initialDate: DateTime.now(),
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2030),
+                          builder: (context, child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: kPrimaryColor,
+                                  onPrimary: kSecondaryColor,
+                                  onSurface: kPrimaryColor,
+                                ),
+                                textButtonTheme: TextButtonThemeData(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: kPrimaryColor,
+                                  ),
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
                         );
                         if (newDate == null) return;
                         String date1 =
@@ -179,6 +196,23 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
                       TimeOfDay? pickedTime = await showTimePicker(
                         initialTime: TimeOfDay.now(),
                         context: context,
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: kPrimaryColor,
+                                onPrimary: kSecondaryColor,
+                                onSurface: kPrimaryColor,
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  foregroundColor: kPrimaryColor,
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
                       );
                       if (pickedTime != null) {
                         if (!mounted) return;
@@ -209,6 +243,23 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
                       TimeOfDay? pickedTime = await showTimePicker(
                         initialTime: TimeOfDay.now(),
                         context: context,
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: kPrimaryColor,
+                                onPrimary: kSecondaryColor,
+                                onSurface: kPrimaryColor,
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  foregroundColor: kPrimaryColor,
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
                       );
                       if (pickedTime != null) {
                         if (!mounted) return;
@@ -227,7 +278,8 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
               ),
             ),
             Positioned(
-                child: loading ? processIndicator(context) : const SizedBox())
+              child: loading ? processIndicator(context) : const SizedBox(),
+            )
           ],
         ),
       ),

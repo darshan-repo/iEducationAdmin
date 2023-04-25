@@ -44,7 +44,7 @@ class _AddStaffDetailsScreenState extends State<AddStaffDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbar(context, title: 'Add Details'),
+      appBar: appbar(context, title: 'Add Staff Details'),
       body: Stack(
         children: [
           Padding(

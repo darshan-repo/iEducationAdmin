@@ -133,6 +133,23 @@ class _AddTimeTableState extends State<AddTimeTable> {
                       hintText: "Lecture Date",
                       onPressed: () async {
                         DateTime? newDate = await showDatePicker(
+                          builder: (context, child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: kPrimaryColor,
+                                  onPrimary: kSecondaryColor,
+                                  onSurface: kPrimaryColor,
+                                ),
+                                textButtonTheme: TextButtonThemeData(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: kPrimaryColor,
+                                  ),
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(2000),
@@ -162,6 +179,23 @@ class _AddTimeTableState extends State<AddTimeTable> {
                       TimeOfDay? pickedTime = await showTimePicker(
                         initialTime: TimeOfDay.now(),
                         context: context,
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: kPrimaryColor,
+                                onPrimary: kSecondaryColor,
+                                onSurface: kPrimaryColor,
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  foregroundColor: kPrimaryColor,
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
                       );
                       if (pickedTime != null) {
                         if (!mounted) return;
@@ -193,6 +227,23 @@ class _AddTimeTableState extends State<AddTimeTable> {
                       TimeOfDay? pickedTime = await showTimePicker(
                         initialTime: TimeOfDay.now(),
                         context: context,
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: kPrimaryColor,
+                                onPrimary: kSecondaryColor,
+                                onSurface: kPrimaryColor,
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  foregroundColor: kPrimaryColor,
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
                       );
                       if (pickedTime != null) {
                         if (!mounted) return;

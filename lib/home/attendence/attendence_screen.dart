@@ -64,10 +64,19 @@ class _AttendenceScreenState extends State<AttendenceScreen>
                       height: 10,
                     ),
                     MaterialButton(
-                        onPressed: () {
-                          Navigator.pop(context, true);
-                        },
-                        child: const Text('Done'))
+                      minWidth: 0.5.sw,
+                      color: kSecondaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context, true);
+                      },
+                      child: Text(
+                        'Done',
+                        style: TextStyle(color: kPrimaryColor),
+                      ),
+                    )
                   ],
                 ),
               );

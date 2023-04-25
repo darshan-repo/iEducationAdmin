@@ -196,6 +196,23 @@ class _UpdateStudentState extends State<UpdateStudent> {
                         },
                         onPressed: () async {
                           DateTime? pickedDate = await showDatePicker(
+                              builder: (context, child) {
+                                return Theme(
+                                  data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.light(
+                                      primary: kPrimaryColor,
+                                      onPrimary: kSecondaryColor,
+                                      onSurface: kPrimaryColor,
+                                    ),
+                                    textButtonTheme: TextButtonThemeData(
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: kPrimaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                  child: child!,
+                                );
+                              },
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime(1950),
