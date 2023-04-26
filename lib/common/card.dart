@@ -35,8 +35,8 @@ Widget noticeDetailsCard(
                       ),
                     ),
                   ),
-                  placeholder: (context, url) =>
-                      CircularProgressIndicator(color: kPrimaryColor),
+                  placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(color: kPrimaryColor)),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
