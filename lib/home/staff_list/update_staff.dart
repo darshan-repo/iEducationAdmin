@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:admin_app/common/snackbars.dart';
+
 import '../../libs.dart';
 
 class UpdateStaffScreen extends StatefulWidget {
@@ -106,20 +108,20 @@ class _UpdateStaffScreenState extends State<UpdateStaffScreen> {
                           hintText: "Full Name",
                           txtController: txtFnameStaffControl,
                           validator: (value) =>
-                              value!.isEmpty ? "Name Required" : null,
+                              value!.isEmpty ? "Please Enter Name" : null,
                         ),
                         labelText(text: 'Enter Degree'),
                         sTextFormField(
                           txtController: txtDegreeStaffControl,
                           validator: (value) =>
-                              value!.isEmpty ? "Degree Required" : null,
+                              value!.isEmpty ? "Please Enter Degree" : null,
                           hintText: 'Degree',
                         ),
                         labelText(text: 'Enter Post'),
                         sTextFormField(
                           txtController: txtPostStaffControl,
                           validator: (value) =>
-                              value!.isEmpty ? "Post Required" : null,
+                              value!.isEmpty ? "Please Enter Post" : null,
                           hintText: 'Post',
                         ),
                         labelText(text: 'Enter Email'),
@@ -141,7 +143,7 @@ class _UpdateStaffScreenState extends State<UpdateStaffScreen> {
                         sTextFormField(
                           txtController: txtPhoneNoStaffControl,
                           validator: (value) =>
-                              value!.isEmpty ? "Phone No. required" : null,
+                              value!.isEmpty ? "Please Enter Phone No." : null,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
@@ -153,14 +155,14 @@ class _UpdateStaffScreenState extends State<UpdateStaffScreen> {
                         sTextFormField(
                           txtController: txtSubjectStaffControl,
                           validator: (value) =>
-                              value!.isEmpty ? "Subject required" : null,
+                              value!.isEmpty ? "Please Enter Subject" : null,
                           hintText: 'Subject',
                         ),
                         labelText(text: 'Enter Experience'),
                         sTextFormField(
                           txtController: txtExperienceStaffControl,
                           validator: (value) =>
-                              value!.isEmpty ? "Experience required" : null,
+                              value!.isEmpty ? "Please Enter Experience" : null,
                           hintText: 'Experience',
                         ),
                       ],
@@ -207,25 +209,14 @@ class _UpdateStaffScreenState extends State<UpdateStaffScreen> {
                 setState(() {});
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text("Update Staff Data"),
-                    backgroundColor: Colors.green,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                  insertSnackBar(messageText: 'Successfully Update Staff Data'),
                 );
                 clearData();
                 setState(() {});
               } else {
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Please Select Image"),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                  warningSnackBar(messageText: 'Please Select Image'),
                 );
               }
             }

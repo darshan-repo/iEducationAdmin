@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:admin_app/common/snackbars.dart';
 import 'package:intl/intl.dart';
 
 import '../../libs.dart';
@@ -458,51 +459,37 @@ class AddStudentDetailsState extends State<AddStudentDetails> {
                       await StudentDataApi.studentAddData(obj: obj);
                       Navigator.pop(context);
                       loading = false;
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        duration: Duration(seconds: 1),
-                        content: Text("Successfully Add Student Data"),
-                        backgroundColor: Colors.green,
-                        margin: EdgeInsets.all(20),
-                        behavior: SnackBarBehavior.floating,
-                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        insertSnackBar(
+                            messageText: 'Successfully Add Student Data'),
+                      );
                       clearController();
                       setState(() {});
                     } else {
                       loading = false;
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Please Select Blood Group"),
-                        backgroundColor: Colors.red,
-                        margin: EdgeInsets.all(20),
-                        behavior: SnackBarBehavior.floating,
-                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        warningSnackBar(
+                            messageText: 'Please Select Blood Group'),
+                      );
                     }
                   } else {
                     loading = false;
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Please Select Semester"),
-                      backgroundColor: Colors.red,
-                      margin: EdgeInsets.all(20),
-                      behavior: SnackBarBehavior.floating,
-                    ));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      warningSnackBar(messageText: 'Please Select Semester'),
+                    );
                   }
                 } else {
                   loading = false;
 
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Please Select Stream"),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    warningSnackBar(messageText: 'Please Select Stream'),
+                  );
                 }
               } else {
                 loading = false;
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Please Select Image"),
-                  backgroundColor: Colors.red,
-                  margin: EdgeInsets.all(20),
-                  behavior: SnackBarBehavior.floating,
-                ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  warningSnackBar(messageText: 'Please Select Image'),
+                );
               }
             }
           },
@@ -511,18 +498,3 @@ class AddStudentDetailsState extends State<AddStudentDetails> {
     );
   }
 }
-
-
-   // radioContainer(context,
-                      //     maleValue: male,
-                      //     femaleOnChanged: (value) {
-                      //       setState(() {
-                      //         gender = male.toString();
-                      //       });
-                      //     },
-                      //     femaleValue: female,
-                      //     maleOnChanged: (value) {
-                      //       setState(() {
-                      //         gender = female.toString();
-                      //       });
-                      //     }),

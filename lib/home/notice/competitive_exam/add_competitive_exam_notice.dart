@@ -1,3 +1,5 @@
+import 'package:admin_app/common/snackbars.dart';
+
 import '../../../libs.dart';
 
 class AddCompetitiveExamNotice extends StatefulWidget {
@@ -89,7 +91,7 @@ class _AddCompetitiveExamNoticeState extends State<AddCompetitiveExamNotice> {
                       sTextFormField(
                         txtController: txtCompetitiveExamTitle,
                         validator: (value) =>
-                            value!.isEmpty ? "Enter Title" : null,
+                            value!.isEmpty ? "Please Enter Title" : null,
                         hintText: "Enter Title",
                       ),
                       //sizedBox,
@@ -97,7 +99,7 @@ class _AddCompetitiveExamNoticeState extends State<AddCompetitiveExamNotice> {
                       sTextFormField(
                         txtController: txtCompetitiveExamDescription,
                         validator: (value) =>
-                            value!.isEmpty ? "Enter Description" : null,
+                            value!.isEmpty ? "Please Enter Description" : null,
                         hintText: "Enter Description",
                         maxLines: 10,
                       ),
@@ -138,25 +140,14 @@ class _AddCompetitiveExamNoticeState extends State<AddCompetitiveExamNotice> {
                 Navigator.pop(context);
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text("Successfully Add Notice"),
-                    backgroundColor: Colors.green,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                  insertSnackBar(messageText: 'Successfully Add Notice Data'),
                 );
                 clearData();
                 setState(() {});
               } else {
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Please Select Image"),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                  warningSnackBar(messageText: 'Please Select Image'),
                 );
               }
             }

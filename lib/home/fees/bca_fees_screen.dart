@@ -11,7 +11,6 @@ class BCAFeesScreen extends StatefulWidget {
 
 class _BCAFeesScreenState extends State<BCAFeesScreen> {
   TextEditingController bcaFeesSearch = TextEditingController();
-  // bool _customTileExpandedEducationDetail = false;
   String? selectedSemSemester = 'All';
   bool isLoading = false;
   List<Student> bcaStudentFees = [];
@@ -175,21 +174,6 @@ class _BCAFeesScreenState extends State<BCAFeesScreen> {
                                           ),
                                           iconColor: kPrimaryColor,
                                           collapsedIconColor: kPrimaryColor,
-                                          trailing: CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: kPrimaryColor,
-                                            child: Icon(
-                                              Icons.done,
-                                              // bcaStudentFees[index].isShowButton
-                                              //     ? Icons.done
-                                              //     : Icons.close,
-                                              color: kSecondaryColor,
-                                              size: 20,
-                                              // bcaStudentFees[index].isShowButton
-                                              //     ? Icons.arrow_drop_down_circle
-                                              //     : Icons.arrow_right,
-                                            ),
-                                          ),
                                           onExpansionChanged: (bool expanded) {
                                             indexs.removeAt(0);
                                             indexs.insert(1, index);

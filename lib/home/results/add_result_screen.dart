@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:admin_app/common/snackbars.dart';
 import 'package:intl/intl.dart';
 import '../../libs.dart';
 
@@ -202,7 +203,7 @@ class _AddResultScreenState extends State<AddResultScreen> {
                     labelText(text: "Select Semester"),
                     dropDownButton(
                       context,
-                      hintText: "Select Sem",
+                      hintText: "Select Semester",
                       item: semester
                           .map(
                             (semester) => DropdownMenuItem<String>(
@@ -231,7 +232,7 @@ class _AddResultScreenState extends State<AddResultScreen> {
                       txtController: txtResultDate,
                       validator: (value) {
                         if (value!.isEmpty || value.isEmpty) {
-                          return 'Choose Date';
+                          return 'Please Select Date';
                         }
                         return null;
                       },
@@ -275,7 +276,7 @@ class _AddResultScreenState extends State<AddResultScreen> {
                       txtController: txtResultTime,
                       validator: (value) {
                         if (value!.isEmpty || value.isEmpty) {
-                          return 'Select Time';
+                          return 'Please Select Time';
                         }
                         return null;
                       },
@@ -356,50 +357,35 @@ class _AddResultScreenState extends State<AddResultScreen> {
                       if (!mounted) return;
                       Navigator.pop(context);
                       loading = false;
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        duration: Duration(seconds: 1),
-                        content: Text("Successfully Add Result"),
-                        backgroundColor: Colors.green,
-                        margin: EdgeInsets.all(20),
-                        behavior: SnackBarBehavior.floating,
-                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        insertSnackBar(
+                            messageText: 'Successfully Add Result Data'),
+                      );
                       clearData();
                       setState(() {});
                     } else {
                       loading = false;
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Please Select Semester "),
-                        backgroundColor: Colors.red,
-                        margin: EdgeInsets.all(20),
-                        behavior: SnackBarBehavior.floating,
-                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        warningSnackBar(messageText: 'Please Select Semester'),
+                      );
                     }
                   } else {
                     loading = false;
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Please Select Stream"),
-                      backgroundColor: Colors.red,
-                      margin: EdgeInsets.all(20),
-                      behavior: SnackBarBehavior.floating,
-                    ));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      warningSnackBar(messageText: 'Please Select Stream'),
+                    );
                   }
                 } else {
                   loading = false;
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Please Select Exam Type"),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    warningSnackBar(messageText: 'Please Select Exam Type'),
+                  );
                 }
               } else {
                 loading = false;
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Please Pick File"),
-                  backgroundColor: Colors.red,
-                  margin: EdgeInsets.all(20),
-                  behavior: SnackBarBehavior.floating,
-                ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  warningSnackBar(messageText: 'Please Pick File'),
+                );
               }
             }
           },

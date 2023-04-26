@@ -1,3 +1,4 @@
+import 'package:admin_app/common/snackbars.dart';
 import 'package:intl/intl.dart';
 import '../../libs.dart';
 
@@ -130,7 +131,7 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
                   textFormField(
                     txtController: txtLectureName,
                     validator: (value) =>
-                        value!.isEmpty ? "Enter Lecture Name" : null,
+                        value!.isEmpty ? "Please Enter Lecture Name" : null,
                     hintText: "Lecture Name",
                     prefixIcon: Icons.library_books,
                   ),
@@ -140,7 +141,7 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
                       txtController: txtLectureDate,
                       validator: (value) {
                         if (value!.isEmpty || value.isEmpty) {
-                          return 'Choose Date';
+                          return 'Please Select Date';
                         }
                         return null;
                       },
@@ -148,8 +149,6 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
                       suffixIcon: Icons.calendar_month,
                       hintText: "Lecture Date",
                       onPressed: () async {
-                        debugPrint("in on tap  ==> ");
-
                         DateTime? newDate = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
@@ -185,7 +184,7 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
                     txtController: txtLectureStartTime,
                     validator: (value) {
                       if (value!.isEmpty || value.isEmpty) {
-                        return 'Choose Date';
+                        return 'Please Select Time';
                       }
                       return null;
                     },
@@ -232,7 +231,7 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
                     txtController: txtLectureEndTime,
                     validator: (value) {
                       if (value!.isEmpty || value.isEmpty) {
-                        return 'Choose Date';
+                        return 'Please Select Time ';
                       }
                       return null;
                     },
@@ -312,33 +311,22 @@ class _UpdateTimeTableState extends State<UpdateTimeTable> {
                   Navigator.pop(context);
                   setState(() {});
                   loading = false;
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text("Update Time Table"),
-                    backgroundColor: Colors.green,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    insertSnackBar(
+                        messageText: 'Successfully Update TimeTable Data'),
+                  );
                   clearController();
                   setState(() {});
                 } else {
                   loading = false;
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Please Select Semester "),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    warningSnackBar(messageText: 'Please Select Semester'),
+                  );
                 }
               } else {
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Please Select Stream "),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                  warningSnackBar(messageText: 'Please Select Stream'),
                 );
               }
             }

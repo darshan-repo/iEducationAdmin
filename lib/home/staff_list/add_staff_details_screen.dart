@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:admin_app/common/snackbars.dart';
+
 import '../../libs.dart';
 
 class AddStaffDetailsScreen extends StatefulWidget {
@@ -81,20 +83,20 @@ class _AddStaffDetailsScreenState extends State<AddStaffDetailsScreen> {
                         hintText: "Enter Name",
                         txtController: txtFnameStaffControl,
                         validator: (value) =>
-                            value!.isEmpty ? "Enter First Name" : null,
+                            value!.isEmpty ? "Please Enter Name" : null,
                       ),
                       labelText(text: 'Enter Degree'),
                       sTextFormField(
                           txtController: txtDegreeStaffControl,
                           validator: (value) =>
-                              value!.isEmpty ? "Enter Degree" : null,
+                              value!.isEmpty ? "Please Enter Degree" : null,
                           hintText: "Degree"),
                       labelText(text: 'Enter Post'),
                       sTextFormField(
                         hintText: "Post",
                         txtController: txtPostStaffControl,
                         validator: (value) =>
-                            value!.isEmpty ? "Enter Post" : null,
+                            value!.isEmpty ? "Please Enter Post" : null,
                       ),
                       labelText(text: 'Enter Email'),
                       sTextFormField(
@@ -117,21 +119,21 @@ class _AddStaffDetailsScreenState extends State<AddStaffDetailsScreen> {
                         keyboardType: TextInputType.number,
                         txtController: txtPhoneNoStaffControl,
                         validator: (value) =>
-                            value!.isEmpty ? "Enter Phone Number" : null,
+                            value!.isEmpty ? "Please Enter Phone Number" : null,
                       ),
                       labelText(text: 'Enter Subject'),
                       sTextFormField(
                         hintText: "Subject",
                         txtController: txtSubjectStaffControl,
                         validator: (value) =>
-                            value!.isEmpty ? "Enter Subject" : null,
+                            value!.isEmpty ? "Please Enter Subject" : null,
                       ),
                       labelText(text: 'Enter Experience'),
                       sTextFormField(
                         txtController: txtExperienceStaffControl,
                         hintText: "Experience",
                         validator: (value) =>
-                            value!.isEmpty ? "Enter Experience" : null,
+                            value!.isEmpty ? "Please Enter Experience" : null,
                       ),
                     ],
                   ),
@@ -172,23 +174,16 @@ class _AddStaffDetailsScreenState extends State<AddStaffDetailsScreen> {
                 await StaffListApi.staffListAddData(obj: obj);
                 Navigator.pop(context);
                 loading = false;
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  duration: Duration(seconds: 1),
-                  content: Text("Successfully Add Staff Data"),
-                  backgroundColor: Colors.green,
-                  margin: EdgeInsets.all(20),
-                  behavior: SnackBarBehavior.floating,
-                ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  insertSnackBar(messageText: 'Successfully Add Staff Data'),
+                );
                 clearData();
                 setState(() {});
               } else {
                 loading = false;
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Please Select Image"),
-                  backgroundColor: Colors.red,
-                  margin: EdgeInsets.all(20),
-                  behavior: SnackBarBehavior.floating,
-                ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  warningSnackBar(messageText: 'Please Select Image'),
+                );
               }
             }
           },

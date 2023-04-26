@@ -1,3 +1,5 @@
+import 'package:admin_app/common/snackbars.dart';
+
 import '../../../libs.dart';
 
 class UpdateJobVacancyNotice extends StatefulWidget {
@@ -103,8 +105,8 @@ class _UpdateJobVacancyNoticeState extends State<UpdateJobVacancyNotice> {
                       sTextFormField(
                         txtController: txtJobVacancyDescription,
                         validator: (value) =>
-                            value!.isEmpty ? "Enter Description" : null,
-                        hintText: "Please Enter Description",
+                            value!.isEmpty ? "Please Enter Description" : null,
+                        hintText: "Enter Description",
                         maxLines: 10,
                       ),
                     ],
@@ -148,23 +150,17 @@ class _UpdateJobVacancyNoticeState extends State<UpdateJobVacancyNotice> {
                 Navigator.pop(context);
                 setState(() {});
                 loading = false;
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  duration: Duration(seconds: 1),
-                  content: Text("Updated Notice"),
-                  backgroundColor: Colors.green,
-                  margin: EdgeInsets.all(20),
-                  behavior: SnackBarBehavior.floating,
-                ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  insertSnackBar(
+                      messageText: 'Successfully Update Notice Data'),
+                );
                 clearData();
                 setState(() {});
               } else {
                 loading = false;
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Please Select Image"),
-                  backgroundColor: Colors.red,
-                  margin: EdgeInsets.all(20),
-                  behavior: SnackBarBehavior.floating,
-                ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  warningSnackBar(messageText: 'Please Select Image'),
+                );
               }
             }
           },

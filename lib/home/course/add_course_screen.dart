@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:admin_app/common/snackbars.dart';
 import 'package:intl/intl.dart';
 import '../../libs.dart';
 
@@ -150,7 +151,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                     textFormField(
                       txtController: txtCourseSubject,
                       validator: (value) =>
-                          value!.isEmpty ? "Enter Subject" : null,
+                          value!.isEmpty ? "Please Enter Subject Name" : null,
                       hintText: 'Subject Name',
                       prefixIcon: Icons.library_books_outlined,
                     ),
@@ -183,7 +184,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                     labelText(text: "Select Semester"),
                     dropDownButton(
                       context,
-                      hintText: "Select Sem",
+                      hintText: "Select Semester",
                       item: semester
                           .map(
                             (semester) => DropdownMenuItem<String>(
@@ -212,7 +213,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                       txtController: txtCourseDate,
                       validator: (value) {
                         if (value!.isEmpty || value.isEmpty) {
-                          return 'Choose Date';
+                          return 'Please Select Date';
                         }
                         return null;
                       },
@@ -256,7 +257,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                       txtController: txtCourseTime,
                       validator: (value) {
                         if (value!.isEmpty || value.isEmpty) {
-                          return 'Select Time';
+                          return 'Please Select Time';
                         }
                         return null;
                       },
@@ -307,74 +308,63 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
         ],
       ),
       bottomNavigationBar: Padding(
-          padding: const EdgeInsets.fromLTRB(12, 0, 12, 10),
-          child: materialButton(
-            context,
-            buttonText: 'Submit',
-            onPressed: () async {
-              if (addCourse.currentState!.validate()) {
-                if (pickedfile != null) {
-                  if (selectedStream != null) {
-                    if (selectedSemester != null) {
-                      loading = true;
-                      setState(() {});
-                      await uploadFile();
-                      Course obj = Course(
-                        key: int.parse(
-                            DateTime.now().millisecondsSinceEpoch.toString()),
-                        fileName: urlDownload,
-                        fileSize: fileSize!.toStringAsFixed(2),
-                        subjectName: txtCourseSubject.text,
-                        stream: selectedStream.toString(),
-                        semester: selectedSemester.toString(),
-                        date: txtCourseDate.text,
-                        time: txtCourseTime.text,
-                      );
-                      await CourseApi.courseAddData(
-                        obj: obj,
-                      );
-                      if (!mounted) return;
-                      Navigator.pop(context);
-                      loading = false;
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        duration: Duration(seconds: 1),
-                        content: Text("Successfully Add Course"),
-                        backgroundColor: Colors.green,
-                        margin: EdgeInsets.all(20),
-                        behavior: SnackBarBehavior.floating,
-                      ));
-                      clearData();
-                      setState(() {});
-                    } else {
-                      loading = false;
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Please Select Stream "),
-                        backgroundColor: Colors.red,
-                        margin: EdgeInsets.all(20),
-                        behavior: SnackBarBehavior.floating,
-                      ));
-                    }
+        padding: const EdgeInsets.fromLTRB(12, 0, 12, 10),
+        child: materialButton(
+          context,
+          buttonText: 'Submit',
+          onPressed: () async {
+            if (addCourse.currentState!.validate()) {
+              if (pickedfile != null) {
+                if (selectedStream != null) {
+                  if (selectedSemester != null) {
+                    loading = true;
+                    setState(() {});
+                    await uploadFile();
+                    Course obj = Course(
+                      key: int.parse(
+                          DateTime.now().millisecondsSinceEpoch.toString()),
+                      fileName: urlDownload,
+                      fileSize: fileSize!.toStringAsFixed(2),
+                      subjectName: txtCourseSubject.text,
+                      stream: selectedStream.toString(),
+                      semester: selectedSemester.toString(),
+                      date: txtCourseDate.text,
+                      time: txtCourseTime.text,
+                    );
+                    await CourseApi.courseAddData(
+                      obj: obj,
+                    );
+                    if (!mounted) return;
+                    Navigator.pop(context);
+                    loading = false;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      insertSnackBar(
+                          messageText: 'Successfully Add Course Data'),
+                    );
+                    clearData();
+                    setState(() {});
                   } else {
                     loading = false;
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Please Select Semester "),
-                      backgroundColor: Colors.red,
-                      margin: EdgeInsets.all(20),
-                      behavior: SnackBarBehavior.floating,
-                    ));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      warningSnackBar(messageText: 'Please Select Stream'),
+                    );
                   }
                 } else {
                   loading = false;
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Please Pick File"),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    warningSnackBar(messageText: 'Please Select Semester'),
+                  );
                 }
+              } else {
+                loading = false;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  warningSnackBar(messageText: 'Please Pick File'),
+                );
               }
-            },
-          )),
+            }
+          },
+        ),
+      ),
     );
   }
 }

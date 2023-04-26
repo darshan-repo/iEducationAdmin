@@ -65,36 +65,6 @@ class _BCOMAttendenceScreenState extends State<BCOMAttendenceScreen> {
                         .toList();
                   });
                 },
-                items: semester
-                    .map(
-                      (semester) => DropdownMenuItem<String>(
-                        value: semester,
-                        child: Text(
-                          semester,
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColor),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    )
-                    .toList(),
-                value: selectedSemSemester,
-                onChanged: (value) {
-                  setState(() {
-                    selectedSemSemester = value as String;
-                    // if (selectedSemSemester == 'All') {
-                    //   semWiseList = bcaAttendenceList;
-                    // } else if (selectedSemSemester == 'SEM - 6') {
-                    //   semWiseList = bcaAttendenceList
-                    //       .where((item) =>
-                    //           item.semester!.contains(value.toLowerCase()))
-                    //       .toList();
-                    //   print(semWiseList[0].toJson());
-                    // }
-                  });
-                },
               ),
               isLoading
                   ? Column(
@@ -197,7 +167,21 @@ class _BCOMAttendenceScreenState extends State<BCOMAttendenceScreen> {
                                     )
                                   : searchBCOMAttendenceList.isEmpty &&
                                           bcomAttendenceSearch.text.isNotEmpty
-                                      ? const Text('Student Not Found')
+                                      ? SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.1,
+                                              ),
+                                              Lottie.asset(
+                                                  'assets/icons/Circle.json'),
+                                            ],
+                                          ),
+                                        )
                                       : ListView.builder(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 5),

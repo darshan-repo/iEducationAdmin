@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:admin_app/common/snackbars.dart';
 import 'package:intl/intl.dart';
 import '../../libs.dart';
 
@@ -160,8 +161,9 @@ class AddAssignmentScreenState extends State<AddAssignmentScreen> {
                         labelText(text: 'Subject Name'),
                         textFormField(
                           txtController: txtAssignmentSubject,
-                          validator: (value) =>
-                              value!.isEmpty ? "Enter Subject" : null,
+                          validator: (value) => value!.isEmpty
+                              ? "Please Enter Subject Name"
+                              : null,
                           hintText: 'Subject Name',
                           prefixIcon: Icons.library_books_outlined,
                         ),
@@ -249,7 +251,7 @@ class AddAssignmentScreenState extends State<AddAssignmentScreen> {
                           txtController: txtAssignmentDate,
                           validator: (value) {
                             if (value!.isEmpty || value.isEmpty) {
-                              return 'Choose Date';
+                              return 'Please Select Date';
                             }
                             return null;
                           },
@@ -293,7 +295,7 @@ class AddAssignmentScreenState extends State<AddAssignmentScreen> {
                           txtController: txtAssignmentTime,
                           validator: (value) {
                             if (value!.isEmpty || value.isEmpty) {
-                              return 'Select Time';
+                              return 'Please Select Time';
                             }
                             return null;
                           },
@@ -378,58 +380,34 @@ class AddAssignmentScreenState extends State<AddAssignmentScreen> {
                       Navigator.pop(context);
                       loading = false;
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          duration: Duration(seconds: 1),
-                          content: Text("Successfully Add Assignment Data"),
-                          backgroundColor: Colors.green,
-                          margin: EdgeInsets.all(20),
-                          behavior: SnackBarBehavior.floating,
-                        ),
+                        insertSnackBar(
+                            messageText: 'Successfully Add Assignment Data'),
                       );
                       clearData();
                       setState(() {});
                     } else {
                       loading = false;
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Please Select No Of Assignment"),
-                          backgroundColor: Colors.red,
-                          margin: EdgeInsets.all(20),
-                          behavior: SnackBarBehavior.floating,
-                        ),
+                        warningSnackBar(
+                            messageText: 'Please Select No Of Assignment'),
                       );
                     }
                   } else {
                     loading = false;
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Please Select Stream "),
-                        backgroundColor: Colors.red,
-                        margin: EdgeInsets.all(20),
-                        behavior: SnackBarBehavior.floating,
-                      ),
+                      warningSnackBar(messageText: 'Please Select Stream'),
                     );
                   }
                 } else {
                   loading = false;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Please Select Semester "),
-                      backgroundColor: Colors.red,
-                      margin: EdgeInsets.all(20),
-                      behavior: SnackBarBehavior.floating,
-                    ),
+                    warningSnackBar(messageText: 'Please Select Semester'),
                   );
                 }
               } else {
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Please Pick File"),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                  warningSnackBar(messageText: 'Please Pick File'),
                 );
               }
             }

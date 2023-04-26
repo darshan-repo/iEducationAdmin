@@ -1,3 +1,4 @@
+import 'package:admin_app/common/snackbars.dart';
 import 'package:intl/intl.dart';
 import '../../libs.dart';
 
@@ -114,7 +115,7 @@ class _AddTimeTableState extends State<AddTimeTable> {
                   textFormField(
                     txtController: txtLectureName,
                     validator: (value) =>
-                        value!.isEmpty ? "Enter Lecture Name" : null,
+                        value!.isEmpty ? "Please Enter Lecture Name" : null,
                     hintText: "Lecture Name",
                     prefixIcon: Icons.library_books,
                   ),
@@ -124,7 +125,7 @@ class _AddTimeTableState extends State<AddTimeTable> {
                       txtController: txtLectureDate,
                       validator: (value) {
                         if (value!.isEmpty || value.isEmpty) {
-                          return 'Choose Date';
+                          return 'Please Select Date';
                         }
                         return null;
                       },
@@ -168,7 +169,7 @@ class _AddTimeTableState extends State<AddTimeTable> {
                     txtController: txtLectureStartTime,
                     validator: (value) {
                       if (value!.isEmpty || value.isEmpty) {
-                        return 'Set Start Time';
+                        return 'Plase Select Time';
                       }
                       return null;
                     },
@@ -216,7 +217,7 @@ class _AddTimeTableState extends State<AddTimeTable> {
                     txtController: txtLectureEndTime,
                     validator: (value) {
                       if (value!.isEmpty || value.isEmpty) {
-                        return 'Set End Time';
+                        return 'Please Select Time';
                       }
                       return null;
                     },
@@ -294,36 +295,21 @@ class _AddTimeTableState extends State<AddTimeTable> {
                   Navigator.pop(context);
                   loading = false;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      duration: Duration(seconds: 1),
-                      content: Text("Successfully Add Time Table"),
-                      backgroundColor: Colors.green,
-                      margin: EdgeInsets.all(20),
-                      behavior: SnackBarBehavior.floating,
-                    ),
+                    insertSnackBar(
+                        messageText: 'Successfully Add TimeTable Data'),
                   );
                   clearData();
                   setState(() {});
                 } else {
                   loading = false;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Please Select Sem "),
-                      backgroundColor: Colors.red,
-                      margin: EdgeInsets.all(20),
-                      behavior: SnackBarBehavior.floating,
-                    ),
+                    warningSnackBar(messageText: 'Please Select Semester'),
                   );
                 }
               } else {
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Please Select Stream "),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                  warningSnackBar(messageText: 'Please Select Stream'),
                 );
               }
             }

@@ -1,3 +1,5 @@
+import 'package:admin_app/common/snackbars.dart';
+
 import '../../../libs.dart';
 
 class AddCollegeActivityNotice extends StatefulWidget {
@@ -88,15 +90,14 @@ class _AddCollegeActivityNoticeState extends State<AddCollegeActivityNotice> {
                       sTextFormField(
                         txtController: txtCollegeActivityTitle,
                         validator: (value) =>
-                            value!.isEmpty ? "Enter Title" : null,
+                            value!.isEmpty ? "Please Enter Title" : null,
                         hintText: "Enter Title",
                       ),
-                      //sizedBox,
                       labelText(text: "Enter Description"),
                       sTextFormField(
                         txtController: txtCollegeActivityDescription,
                         validator: (value) =>
-                            value!.isEmpty ? "Enter Description" : null,
+                            value!.isEmpty ? "Please Enter Description" : null,
                         hintText: "Enter Description",
                         maxLines: 10,
                       ),
@@ -137,25 +138,14 @@ class _AddCollegeActivityNoticeState extends State<AddCollegeActivityNotice> {
                 Navigator.pop(context);
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text("Successfully Add Notice"),
-                    backgroundColor: Colors.green,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                  insertSnackBar(messageText: 'Successfully Add Notice Data'),
                 );
                 clearData();
                 setState(() {});
               } else {
                 loading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Please Select Image"),
-                    backgroundColor: Colors.red,
-                    margin: EdgeInsets.all(20),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                  warningSnackBar(messageText: 'Please Select Image'),
                 );
               }
             }
