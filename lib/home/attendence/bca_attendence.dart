@@ -14,22 +14,10 @@ class BCAAttendenceScreen extends StatefulWidget {
 
 class _BCAAttendenceScreenState extends State<BCAAttendenceScreen> {
   TextEditingController bcaAttendenceSearch = TextEditingController();
-  String? selectedSemSemester = 'All';
-
-  final List<String> semester = [
-    'All',
-    'SEM - 1',
-    'SEM - 2',
-    'SEM - 3',
-    'SEM - 4',
-    'SEM - 5',
-    'SEM - 6',
-  ];
 
   bool isLoading = false;
   List<Attendence> bcaAttendenceList = [];
   List<Attendence> searchBCAAttendenceList = [];
-  List<Attendence> semWiseList = [];
 
   @override
   void initState() {
@@ -60,44 +48,16 @@ class _BCAAttendenceScreenState extends State<BCAAttendenceScreen> {
                 context,
                 controller: bcaAttendenceSearch,
                 textFieldOnChanged: (value) {
-                  setState(() {
-                    searchBCAAttendenceList = bcaAttendenceList
-                        .where((item) => item.name!
-                            .toLowerCase()
-                            .contains(value.toLowerCase()))
-                        .toList();
-                  });
+                  setState(
+                    () {
+                      searchBCAAttendenceList = bcaAttendenceList
+                          .where((item) => item.name!
+                              .toLowerCase()
+                              .contains(value.toLowerCase()))
+                          .toList();
+                    },
+                  );
                 },
-                // items: semester
-                //     .map(
-                //       (semester) => DropdownMenuItem<String>(
-                //         value: semester,
-                //         child: Text(
-                //           semester,
-                //           style: TextStyle(
-                //               fontSize: 14,
-                //               fontWeight: FontWeight.bold,
-                //               color: kPrimaryColor),
-                //           overflow: TextOverflow.ellipsis,
-                //         ),
-                //       ),
-                //     )
-                //     .toList(),
-                // value: selectedSemSemester,
-                // onChanged: (value) {
-                //   setState(() {
-                //     selectedSemSemester = value as String;
-                //     // if (selectedSemSemester == 'All') {
-                //     //   semWiseList = bcaAttendenceList;
-                //     // } else if (selectedSemSemester == 'SEM - 6') {
-                //     //   semWiseList = bcaAttendenceList
-                //     //       .where((item) =>
-                //     //           item.semester!.contains(value.toLowerCase()))
-                //     //       .toList();
-                //     //   print(semWiseList[0].toJson());
-                //     // }
-                //   });
-                // },
               ),
               isLoading
                   ? Column(

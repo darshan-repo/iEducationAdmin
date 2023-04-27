@@ -1,4 +1,5 @@
 import 'package:admin_app/common/searching_filter.dart';
+import 'package:admin_app/home/fees/fees_widget.dart';
 import 'package:admin_app/libs.dart';
 
 class BCAFeesScreen extends StatefulWidget {
@@ -10,20 +11,11 @@ class BCAFeesScreen extends StatefulWidget {
 }
 
 class _BCAFeesScreenState extends State<BCAFeesScreen> {
-  TextEditingController bcaFeesSearch = TextEditingController();
-  String? selectedSemSemester = 'All';
+  TextEditingController bcaFeesSearchController = TextEditingController();
+
   bool isLoading = false;
   List<Student> bcaStudentFees = [];
-
-  final List<String> semester = [
-    'All',
-    'SEM - 1',
-    'SEM - 2',
-    'SEM - 3',
-    'SEM - 4',
-    'SEM - 5',
-    'SEM - 6',
-  ];
+  List<Student> searchBCAFeesList = [];
 
   @override
   void initState() {
@@ -54,26 +46,14 @@ class _BCAFeesScreenState extends State<BCAFeesScreen> {
             children: [
               searching(
                 context,
-                controller: bcaFeesSearch,
-                items: semester
-                    .map(
-                      (semester) => DropdownMenuItem<String>(
-                        value: semester,
-                        child: Text(
-                          semester,
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColor),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    )
-                    .toList(),
-                value: selectedSemSemester,
-                onChanged: (value) {
+                controller: bcaFeesSearchController,
+                textFieldOnChanged: (value) {
                   setState(() {
-                    selectedSemSemester = value as String;
+                    searchBCAFeesList = bcaStudentFees
+                        .where((item) => item.fName
+                            .toLowerCase()
+                            .contains(value.toLowerCase()))
+                        .toList();
                   });
                 },
               ),
@@ -106,219 +86,262 @@ class _BCAFeesScreenState extends State<BCAFeesScreen> {
                               context,
                               seconds: 500,
                               verticalOffset: 100,
-                              child: ListView.builder(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                itemCount: bcaStudentFees.length,
-                                itemBuilder: (context, index) {
-                                  return animation(
-                                    context,
-                                    seconds: 1000,
-                                    verticalOffset: -100,
-                                    child: Card(
-                                      elevation: 3,
-                                      color: kSecondaryColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Theme(
-                                        data: ThemeData(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                        ),
-                                        child: ExpansionTile(
-                                          leading: CachedNetworkImage(
-                                            imageUrl:
-                                                bcaStudentFees[index].image,
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                    Container(
-                                              width: 50,
-                                              height: 100,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                ),
+                              child: searchBCAFeesList.isEmpty &&
+                                      bcaFeesSearchController.text.isEmpty
+                                  ? ListView.builder(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      itemCount: bcaStudentFees.length,
+                                      itemBuilder: (context, index) {
+                                        return animation(
+                                          context,
+                                          seconds: 1000,
+                                          verticalOffset: -100,
+                                          child: Card(
+                                            elevation: 3,
+                                            color: kSecondaryColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Theme(
+                                              data: ThemeData(
+                                                splashColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
                                               ),
-                                            ),
-                                            placeholder: (context, url) =>
-                                                CircularProgressIndicator(
-                                              color: kPrimaryColor,
-                                            ),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    const Icon(Icons.error),
-                                          ),
-                                          title: Text(
-                                            '${bcaStudentFees[index].fName} ${bcaStudentFees[index].mName} ${bcaStudentFees[index].lName}',
-                                            style: TextStyle(
-                                              color: kPrimaryColor,
-                                              fontSize: 16,
-                                              fontWeight: bcaStudentFees[index]
-                                                      .isShowButton
-                                                  ? FontWeight.w600
-                                                  : FontWeight.w400,
-                                            ),
-                                          ),
-                                          subtitle: Text(
-                                            bcaStudentFees[index].semester,
-                                            style: TextStyle(
-                                              color: bcaStudentFees[index]
-                                                      .isShowButton
-                                                  ? kPrimaryColor
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                          iconColor: kPrimaryColor,
-                                          collapsedIconColor: kPrimaryColor,
-                                          onExpansionChanged: (bool expanded) {
-                                            indexs.removeAt(0);
-                                            indexs.insert(1, index);
-                                            setState(
-                                              () {
-                                                bcaStudentFees[indexs[0]]
-                                                    .isShowButton = false;
-                                                bcaStudentFees[index]
-                                                        .isShowButton =
-                                                    bcaStudentFees[index]
-                                                                .isShowButton ==
-                                                            false
-                                                        ? true
-                                                        : false;
-                                                bcaStudentFees[index]
-                                                    .isShowButton = expanded;
-                                              },
-                                            );
-                                          },
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          children: [
-                                            Container(
-                                              margin: const EdgeInsets.all(10),
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    const BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(10),
-                                                  bottomRight:
-                                                      Radius.circular(10),
+                                              child: ExpansionTile(
+                                                leading: CachedNetworkImage(
+                                                  imageUrl:
+                                                      bcaStudentFees[index]
+                                                          .image,
+                                                  imageBuilder: (context,
+                                                          imageProvider) =>
+                                                      Container(
+                                                    width: 50,
+                                                    height: 100,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(
+                                                    color: kPrimaryColor,
+                                                  ),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
                                                 ),
-                                                border: Border.all(
-                                                  color: kPrimaryColor,
+                                                title: Text(
+                                                  '${bcaStudentFees[index].fName} ${bcaStudentFees[index].mName} ${bcaStudentFees[index].lName}',
+                                                  style: TextStyle(
+                                                    color: kPrimaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        bcaStudentFees[index]
+                                                                .isShowButton
+                                                            ? FontWeight.w600
+                                                            : FontWeight.w400,
+                                                  ),
                                                 ),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
+                                                subtitle: Text(
+                                                  bcaStudentFees[index]
+                                                      .semester,
+                                                  style: TextStyle(
+                                                    color: bcaStudentFees[index]
+                                                            .isShowButton
+                                                        ? kPrimaryColor
+                                                        : Colors.black,
+                                                  ),
+                                                ),
+                                                iconColor: kPrimaryColor,
+                                                collapsedIconColor:
+                                                    kPrimaryColor,
+                                                onExpansionChanged:
+                                                    (bool expanded) {
+                                                  indexs.removeAt(0);
+                                                  indexs.insert(1, index);
+                                                  setState(
+                                                    () {
+                                                      bcaStudentFees[indexs[0]]
+                                                          .isShowButton = false;
+                                                      bcaStudentFees[index]
+                                                              .isShowButton =
+                                                          bcaStudentFees[index]
+                                                                      .isShowButton ==
+                                                                  false
+                                                              ? true
+                                                              : false;
+                                                      bcaStudentFees[index]
+                                                              .isShowButton =
+                                                          expanded;
+                                                    },
+                                                  );
+                                                },
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
                                                 children: [
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Total Amount',
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: kPrimaryColor,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "₹14500",
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color: kPrimaryColor,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      top: 10,
-                                                      bottom: 10,
-                                                    ),
-                                                    child: VerticalDivider(
-                                                      color: kPrimaryColor,
-                                                      thickness: 1,
-                                                    ),
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Paid Amount',
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.green,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "₹14500",
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color: Colors.green,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      top: 10,
-                                                      bottom: 10,
-                                                    ),
-                                                    child: VerticalDivider(
-                                                      color: kPrimaryColor,
-                                                      thickness: 1,
-                                                    ),
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Remaing Amount',
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.red,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "₹00000",
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          color: Colors.red,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                  feesContainer(),
                                                 ],
                                               ),
-                                            )
-                                          ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : searchBCAFeesList.isEmpty &&
+                                          bcaFeesSearchController
+                                              .text.isNotEmpty
+                                      ? SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.1,
+                                              ),
+                                              Lottie.asset(
+                                                  'assets/icons/Circle.json'),
+                                            ],
+                                          ),
+                                        )
+                                      : ListView.builder(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5),
+                                          itemCount: searchBCAFeesList.length,
+                                          itemBuilder: (context, index) {
+                                            return animation(
+                                              context,
+                                              seconds: 1000,
+                                              verticalOffset: -100,
+                                              child: Card(
+                                                elevation: 3,
+                                                color: kSecondaryColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Theme(
+                                                  data: ThemeData(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                  ),
+                                                  child: ExpansionTile(
+                                                    leading: CachedNetworkImage(
+                                                      imageUrl:
+                                                          searchBCAFeesList[
+                                                                  index]
+                                                              .image,
+                                                      imageBuilder: (context,
+                                                              imageProvider) =>
+                                                          Container(
+                                                        width: 50,
+                                                        height: 100,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          image:
+                                                              DecorationImage(
+                                                            image:
+                                                                imageProvider,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          CircularProgressIndicator(
+                                                        color: kPrimaryColor,
+                                                      ),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          const Icon(
+                                                              Icons.error),
+                                                    ),
+                                                    title: Text(
+                                                      '${searchBCAFeesList[index].fName} ${searchBCAFeesList[index].mName} ${searchBCAFeesList[index].lName}',
+                                                      style: TextStyle(
+                                                        color: kPrimaryColor,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            searchBCAFeesList[
+                                                                        index]
+                                                                    .isShowButton
+                                                                ? FontWeight
+                                                                    .w600
+                                                                : FontWeight
+                                                                    .w400,
+                                                      ),
+                                                    ),
+                                                    subtitle: Text(
+                                                      searchBCAFeesList[index]
+                                                          .semester,
+                                                      style: TextStyle(
+                                                        color: searchBCAFeesList[
+                                                                    index]
+                                                                .isShowButton
+                                                            ? kPrimaryColor
+                                                            : Colors.black,
+                                                      ),
+                                                    ),
+                                                    iconColor: kPrimaryColor,
+                                                    collapsedIconColor:
+                                                        kPrimaryColor,
+                                                    onExpansionChanged:
+                                                        (bool expanded) {
+                                                      indexs.removeAt(0);
+                                                      indexs.insert(1, index);
+                                                      setState(
+                                                        () {
+                                                          searchBCAFeesList[
+                                                                      indexs[0]]
+                                                                  .isShowButton =
+                                                              false;
+                                                          searchBCAFeesList[
+                                                                      index]
+                                                                  .isShowButton =
+                                                              searchBCAFeesList[
+                                                                              index]
+                                                                          .isShowButton ==
+                                                                      false
+                                                                  ? true
+                                                                  : false;
+                                                          searchBCAFeesList[
+                                                                      index]
+                                                                  .isShowButton =
+                                                              expanded;
+                                                        },
+                                                      );
+                                                    },
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    children: [
+                                                      feesContainer(),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
                             ),
                           ),
                         ),

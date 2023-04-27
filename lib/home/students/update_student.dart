@@ -117,13 +117,23 @@ class _UpdateStudentState extends State<UpdateStudent> {
                     children: [
                       Center(
                         child: GestureDetector(
-                            onTap: () {
-                              pickImageFromFile();
-                              setState(() {});
-                            },
-                            child: cachedNetworkImage(
-                              imageUrl: showStudentData.image,
-                            )),
+                          onTap: () {
+                            pickImageFromFile();
+                            setState(() {});
+                          },
+                          child: imageContainer(
+                            context,
+                            image: fileimage != null
+                                ? FileImage(fileimage!) as ImageProvider
+                                : NetworkImage(
+                                    showStudentData.image,
+                                  ),
+                          ),
+
+                          //  cachedNetworkImage(
+                          //   imageUrl: showStudentData.image,
+                          // )),
+                        ),
                       ),
                       sizedBox,
                       labelText(text: 'First Name'),
@@ -467,7 +477,7 @@ class _UpdateStudentState extends State<UpdateStudent> {
                         mName: txtStudentMNameController.text,
                         lName: txtStudentLnameController.text,
                         caste: txtStudentCasteController.text,
-                        image: showStudentData.image,
+                        image: imageUrl ?? showStudentData.image,
                         email: txtStudentEmailController.text,
                         phoneNo: txtStudentPhoneNoController.text,
                         dob: txtStudentBirthDateController.text,
