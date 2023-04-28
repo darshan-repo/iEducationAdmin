@@ -90,7 +90,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
                       },
                       child: animation(
                         context,
-                        seconds: 500,
+                        seconds: 400,
                         verticalOffset: 100,
                         child: ListView.builder(
                           itemCount: StudentDataApi.studSemData.length,

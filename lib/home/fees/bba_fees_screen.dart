@@ -84,7 +84,7 @@ class _BBAFeesScreenState extends State<BBAFeesScreen> {
                             },
                             child: animation(
                               context,
-                              seconds: 500,
+                              seconds: 200,
                               verticalOffset: 100,
                               child: searchBBAFeesList.isEmpty &&
                                       bbaFeesSearchController.text.isEmpty
@@ -95,7 +95,7 @@ class _BBAFeesScreenState extends State<BBAFeesScreen> {
                                       itemBuilder: (context, index) {
                                         return animation(
                                           context,
-                                          seconds: 1000,
+                                          seconds: 500,
                                           verticalOffset: -100,
                                           child: Card(
                                             elevation: 3,
@@ -222,7 +222,7 @@ class _BBAFeesScreenState extends State<BBAFeesScreen> {
                                           itemBuilder: (context, index) {
                                             return animation(
                                               context,
-                                              seconds: 1000,
+                                              seconds: 500,
                                               verticalOffset: -100,
                                               child: Card(
                                                 elevation: 3,

@@ -46,7 +46,7 @@ class _StaffListScreenState extends State<StaffListScreen> {
                     padding: const EdgeInsets.all(10.0),
                     child: animation(
                       context,
-                      seconds: 1000,
+                      seconds: 400,
                       verticalOffset: -50,
                       child: ListView.builder(
                         itemCount: StaffListApi.staffDataList.length,

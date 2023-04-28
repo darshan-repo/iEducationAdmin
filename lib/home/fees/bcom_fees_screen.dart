@@ -84,7 +84,7 @@ class _BCOMFeesScreenState extends State<BCOMFeesScreen> {
                             },
                             child: animation(
                               context,
-                              seconds: 500,
+                              seconds: 200,
                               verticalOffset: 100,
                               child: searchBCOMFeesList.isEmpty &&
                                       bcomFeesSearchController.text.isEmpty
@@ -95,7 +95,7 @@ class _BCOMFeesScreenState extends State<BCOMFeesScreen> {
                                       itemBuilder: (context, index) {
                                         return animation(
                                           context,
-                                          seconds: 1000,
+                                          seconds: 500,
                                           verticalOffset: -100,
                                           child: Card(
                                             elevation: 3,
@@ -223,7 +223,7 @@ class _BCOMFeesScreenState extends State<BCOMFeesScreen> {
                                           itemBuilder: (context, index) {
                                             return animation(
                                               context,
-                                              seconds: 1000,
+                                              seconds: 500,
                                               verticalOffset: -100,
                                               child: Card(
                                                 elevation: 3,
